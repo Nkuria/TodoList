@@ -1,3 +1,4 @@
 import newList from './dom';
 
-newList();
+const todos = [];
+newList(todos);
