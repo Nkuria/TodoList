@@ -2,6 +2,16 @@ import Todo from './newTodo';
 
 const body = document.getElementById('content');
 
+const changePriority = (obj, target, text) => {
+  target.innerHTML = text;
+  obj.priority = text;
+
+}
+
+const changeCompletionBtn = (obj, target) => {
+target.innerHTML = "Completed";
+obj.checklist = "Completed";
+}
 const displayTodoItems = (arr) => {
   const todoWrap = document.createElement('div');
   todoWrap.classList.add('todo-wrap');
@@ -31,16 +41,59 @@ const displayTodoItems = (arr) => {
     todoPriority.classList.add('todo-priority');
     todoPriority.textContent = obj.priority;
 
+    const priorityContainer = document.createElement('div');
+    priorityContainer.classList.add('priority-container');
+   
+    
+    const highPriority = document.createElement('button');
+    highPriority.innerHTML = "Change to high";
+    highPriority.classList.add('high-priority');
+    highPriority.addEventListener('click',() => {
+        changePriority(obj, todoPriority, 'Urgent' );
+    });
+
+    const mediumPriority = document.createElement('button');
+    mediumPriority.innerHTML = "Change to Medium";
+    mediumPriority.classList.add('medium-priority');
+    mediumPriority.addEventListener('click',() => {
+        changePriority(obj, todoPriority, 'Important' );
+    });
+
+    const normalPriority = document.createElement('button');
+    normalPriority.innerHTML = "Change to Low";
+    normalPriority.classList.add('high-priority');
+    normalPriority.addEventListener('click',() => {
+        changePriority(obj, todoPriority, 'Normal' );
+    });
+
+    priorityContainer.appendChild(highPriority);
+    priorityContainer.appendChild(mediumPriority);
+    priorityContainer.appendChild(normalPriority);
+
+
+
+
+
     const todoCheckList = document.createElement('div');
     todoCheckList.classList.add('todo-checklist');
     todoCheckList.textContent = obj.checklist;
+
+    const changecompletion = document.createElement('button');
+    changecompletion.innerHTML = "Mark as competed";
+    changecompletion.classList.add('change-completion');
+    changecompletion.addEventListener('click', () => {
+        changeCompletionBtn(obj, todoCheckList);
+    })
 
     todoItem.appendChild(todoTitle);
     todoItem.appendChild(todoDesc);
     todoItem.appendChild(todoDueDate);
     todoItem.appendChild(todoNotes);
     todoItem.appendChild(todoPriority);
+    todoItem.appendChild(priorityContainer);
     todoItem.appendChild(todoCheckList);
+    todoItem.appendChild(changecompletion);
+    
 
     parent.appendChild(todoItem);
   };
