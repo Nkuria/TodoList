@@ -2,6 +2,62 @@ import Todo from './newTodo';
 
 const body = document.getElementById('content');
 
+const displayTodoItems = (arr) => {
+  const todoWrap = document.createElement('div');
+  todoWrap.classList.add('todo-wrap');
+  todoWrap.id = 'todo-wrap';
+
+  const todoItemMaker = (parent, obj) => {
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-items');
+
+    const todoTitle = document.createElement('h3');
+    todoTitle.classList.add('todo-title');
+    todoTitle.textContent = obj.title;
+
+    const todoDesc = document.createElement('p');
+    todoDesc.classList.add('todo-desc');
+    todoDesc.textContent = obj.description;
+
+    const todoDueDate = document.createElement('p');
+    todoDueDate.classList.add('todo-date');
+    todoDueDate.textContent = obj.dueDate;
+
+    const todoNotes = document.createElement('p');
+    todoNotes.classList.add('todo-notes');
+    todoNotes.textContent = obj.notes;
+
+    const todoPriority = document.createElement('div');
+    todoPriority.classList.add('todo-priority');
+    todoPriority.textContent = obj.priority;
+
+    const todoCheckList = document.createElement('div');
+    todoCheckList.classList.add('todo-checklist');
+    todoCheckList.textContent = obj.checklist;
+
+    todoItem.appendChild(todoTitle);
+    todoItem.appendChild(todoDesc);
+    todoItem.appendChild(todoDueDate);
+    todoItem.appendChild(todoNotes);
+    todoItem.appendChild(todoPriority);
+    todoItem.appendChild(todoCheckList);
+
+    parent.appendChild(todoItem);
+  };
+
+  for (let i = 0; i < arr.length; i += 1) {
+    const obj = arr[i];
+    todoItemMaker(todoWrap, obj);
+  }
+
+  body.appendChild(todoWrap);
+};
+
+const clearElement = (id) => {
+  const ele = document.getElementById(id);
+  ele.innerHTML = '';
+};
+
 const newList = (arr) => {
   const formContainer = document.createElement('div');
   body.appendChild(formContainer);
@@ -89,8 +145,10 @@ const newList = (arr) => {
       todoNote.value,
       todoComplete(),
     ));
+    clearElement('todo-wrap');
+    displayTodoItems(arr);
   });
   listForm.appendChild(todoBtn);
 };
 
-export default newList;
+export { newList, displayTodoItems };
