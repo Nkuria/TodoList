@@ -15,11 +15,22 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
     this.checklist = newChecklist;
   };
 
-  // const updateChecklist = (elem) => {
-  //     elem.addEventListener('click',{
+  
 
-  //     })
-  // }
 }
+
+Todo.prototype.changePriority = (target, text) => {
+  target.innerHTML = text;
+  this.priority = text;
+  console.log(this.priority);
+}
+
+Todo.prototype.changeCompletionBtn = (target) => {
+target.innerHTML = "Completed";
+this.checklist = "Completed";
+console.log(this.checklist);
+}
+
+
 
 export default Todo;

@@ -2,16 +2,7 @@ import Todo from './newTodo';
 
 const body = document.getElementById('content');
 
-const changePriority = (obj, target, text) => {
-  target.innerHTML = text;
-  obj.priority = text;
 
-}
-
-const changeCompletionBtn = (obj, target) => {
-target.innerHTML = "Completed";
-obj.checklist = "Completed";
-}
 const displayTodoItems = (arr) => {
   const todoWrap = document.createElement('div');
   todoWrap.classList.add('todo-wrap');
@@ -49,21 +40,21 @@ const displayTodoItems = (arr) => {
     highPriority.innerHTML = "Change to high";
     highPriority.classList.add('high-priority');
     highPriority.addEventListener('click',() => {
-        changePriority(obj, todoPriority, 'Urgent' );
+        obj.changePriority(todoPriority, 'Urgent' );
     });
 
     const mediumPriority = document.createElement('button');
     mediumPriority.innerHTML = "Change to Medium";
     mediumPriority.classList.add('medium-priority');
     mediumPriority.addEventListener('click',() => {
-        changePriority(obj, todoPriority, 'Important' );
+        obj.changePriority(todoPriority, 'Important' );
     });
 
     const normalPriority = document.createElement('button');
     normalPriority.innerHTML = "Change to Low";
     normalPriority.classList.add('high-priority');
     normalPriority.addEventListener('click',() => {
-        changePriority(obj, todoPriority, 'Normal' );
+        obj.changePriority(todoPriority, 'Normal' );
     });
 
     priorityContainer.appendChild(highPriority);
@@ -82,7 +73,7 @@ const displayTodoItems = (arr) => {
     changecompletion.innerHTML = "Mark as competed";
     changecompletion.classList.add('change-completion');
     changecompletion.addEventListener('click', () => {
-        changeCompletionBtn(obj, todoCheckList);
+       obj.changeCompletionBtn(todoCheckList);
     })
 
     todoItem.appendChild(todoTitle);
