@@ -6,7 +6,7 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
   this.notes = notes;
   this.checklist = checklist;
 
-  const editList = (newTitle, newdescription, newDueDate, newPriority, newNotes, newChecklist) => {
+  this.edit = (newTitle, newdescription, newDueDate, newPriority, newNotes, newChecklist) => {
     this.title = newTitle;
     this.description = newdescription;
     this.dueDate = newDueDate;
@@ -15,22 +15,15 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
     this.checklist = newChecklist;
   };
 
-  
+  this.changePriority = (target, text) => {
+    target.innerHTML = text;
+    this.priority = text;
+  };
 
+  this.changeCompletionBtn = (target) => {
+    target.innerHTML = 'Completed';
+    this.checklist = 'Completed';
+  };
 }
-
-Todo.prototype.changePriority = (target, text) => {
-  target.innerHTML = text;
-  this.priority = text;
-  console.log(this.priority);
-}
-
-Todo.prototype.changeCompletionBtn = (target) => {
-target.innerHTML = "Completed";
-this.checklist = "Completed";
-console.log(this.checklist);
-}
-
-
 
 export default Todo;
