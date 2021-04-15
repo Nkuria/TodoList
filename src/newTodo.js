@@ -21,8 +21,8 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
   };
 
   this.changeCompletionBtn = (target) => {
-    target.innerHTML = 'Completed';
-    this.checklist = 'Completed';
+    target.innerHTML = 'completed';
+    this.checklist = 'completed';
   };
 }
 

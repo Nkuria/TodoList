@@ -11,6 +11,113 @@ const updateTodoItem = (domObj, todoObj) => {
   domObj.checklist.innerHTML = todoObj.checklist;
 };
 
+
+const displayTodoItems = (arr) => {
+  const todoWrap = document.createElement('div');
+  todoWrap.classList.add('todo-wrap');
+  todoWrap.id = 'todo-wrap';
+
+  const todoItemMaker = (parent, obj) => {
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-items');
+
+    const todoTitle = document.createElement('h3');
+    todoTitle.classList.add('todo-title');
+    todoTitle.textContent = obj.title;
+
+    const todoDesc = document.createElement('p');
+    todoDesc.classList.add('todo-desc');
+    todoDesc.textContent = obj.description;
+
+    const todoDueDate = document.createElement('p');
+    todoDueDate.classList.add('todo-date');
+    todoDueDate.textContent = obj.dueDate;
+
+    const todoNotes = document.createElement('p');
+    todoNotes.classList.add('todo-notes');
+    todoNotes.textContent = obj.notes;
+
+    const todoPriority = document.createElement('div');
+    todoPriority.classList.add('todo-priority');
+    todoPriority.textContent = obj.priority;
+
+    const priorityContainer = document.createElement('div');
+    priorityContainer.classList.add('priority-container');
+
+
+    const highPriority = document.createElement('button');
+    highPriority.innerHTML = 'Change to high';
+    highPriority.classList.add('high-priority');
+    highPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'high');
+    });
+
+    const mediumPriority = document.createElement('button');
+    mediumPriority.innerHTML = 'Change to Medium';
+    mediumPriority.classList.add('medium-priority');
+    mediumPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'medium');
+    });
+
+    const normalPriority = document.createElement('button');
+    normalPriority.innerHTML = 'Change to Low';
+    normalPriority.classList.add('high-priority');
+    normalPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'low');
+    });
+
+    priorityContainer.appendChild(highPriority);
+    priorityContainer.appendChild(mediumPriority);
+    priorityContainer.appendChild(normalPriority);
+
+
+    const todoCheckList = document.createElement('div');
+    todoCheckList.classList.add('todo-checklist');
+    todoCheckList.textContent = obj.checklist;
+
+    const changecompletion = document.createElement('button');
+    changecompletion.innerHTML = 'Mark as completed';
+    changecompletion.classList.add('change-completion');
+    changecompletion.addEventListener('click', () => {
+      obj.changeCompletionBtn(todoCheckList);
+    });
+
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = 'edit';
+    editBtn.type = 'button';
+    editBtn.classList.add('edit-todo');
+    editBtn.addEventListener('click', () => {
+      displayEditForm({
+        title: todoTitle,
+        description: todoDesc,
+        dueDate: todoDueDate,
+        notes: todoNotes,
+        priority: todoPriority,
+        checklist: todoCheckList,
+      }, obj);
+    });
+
+    todoItem.appendChild(todoTitle);
+    todoItem.appendChild(todoDesc);
+    todoItem.appendChild(todoDueDate);
+    todoItem.appendChild(todoNotes);
+    todoItem.appendChild(todoPriority);
+    todoItem.appendChild(priorityContainer);
+    todoItem.appendChild(todoCheckList);
+    todoItem.appendChild(changecompletion);
+    todoItem.appendChild(editBtn);
+
+    parent.appendChild(todoItem);
+  };
+
+  for (let i = 0; i < arr.length; i += 1) {
+    const obj = arr[i];
+    todoItemMaker(todoWrap, obj);
+  }
+
+  body.appendChild(todoWrap);
+};
+
 const displayEditForm = (domObj, obj) => {
   const formContainer = document.createElement('div');
   formContainer.classList.add('form-container');
@@ -44,7 +151,7 @@ const displayEditForm = (domObj, obj) => {
   highPriority.type = 'radio';
   highPriority.name = 'priority';
   highPriority.value = 'high';
-  if (obj.priority === highPriority.value) {
+  if (obj.priority == highPriority.value) {
     highPriority.checked = true;
   }
   listForm.appendChild(highPriority);
@@ -57,7 +164,7 @@ const displayEditForm = (domObj, obj) => {
   mediumPriority.type = 'radio';
   mediumPriority.name = 'priority';
   mediumPriority.value = 'medium';
-  if (obj.priority === mediumPriority.value) {
+  if (obj.priority == mediumPriority.value) {
     mediumPriority.checked = true;
   }
   listForm.appendChild(mediumPriority);
@@ -70,7 +177,7 @@ const displayEditForm = (domObj, obj) => {
   lowPriority.type = 'radio';
   lowPriority.name = 'priority';
   lowPriority.value = 'low';
-  if (obj.priority === lowPriority.value) {
+  if (obj.priority == lowPriority.value) {
     lowPriority.checked = true;
   }
   listForm.appendChild(lowPriority);
@@ -119,111 +226,6 @@ const displayEditForm = (domObj, obj) => {
   listForm.appendChild(saveTodoBtn);
 };
 
-const displayTodoItems = (arr) => {
-  const todoWrap = document.createElement('div');
-  todoWrap.classList.add('todo-wrap');
-  todoWrap.id = 'todo-wrap';
-
-  const todoItemMaker = (parent, obj) => {
-    const todoItem = document.createElement('div');
-    todoItem.classList.add('todo-items');
-
-    const todoTitle = document.createElement('h3');
-    todoTitle.classList.add('todo-title');
-    todoTitle.textContent = obj.title;
-
-    const todoDesc = document.createElement('p');
-    todoDesc.classList.add('todo-desc');
-    todoDesc.textContent = obj.description;
-
-    const todoDueDate = document.createElement('p');
-    todoDueDate.classList.add('todo-date');
-    todoDueDate.textContent = obj.dueDate;
-
-    const todoNotes = document.createElement('p');
-    todoNotes.classList.add('todo-notes');
-    todoNotes.textContent = obj.notes;
-
-    const todoPriority = document.createElement('div');
-    todoPriority.classList.add('todo-priority');
-    todoPriority.textContent = obj.priority;
-
-    const priorityContainer = document.createElement('div');
-    priorityContainer.classList.add('priority-container');
-
-
-    const highPriority = document.createElement('button');
-    highPriority.innerHTML = 'Change to high';
-    highPriority.classList.add('high-priority');
-    highPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'Urgent');
-    });
-
-    const mediumPriority = document.createElement('button');
-    mediumPriority.innerHTML = 'Change to Medium';
-    mediumPriority.classList.add('medium-priority');
-    mediumPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'Important');
-    });
-
-    const normalPriority = document.createElement('button');
-    normalPriority.innerHTML = 'Change to Low';
-    normalPriority.classList.add('high-priority');
-    normalPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'Normal');
-    });
-
-    priorityContainer.appendChild(highPriority);
-    priorityContainer.appendChild(mediumPriority);
-    priorityContainer.appendChild(normalPriority);
-
-
-    const todoCheckList = document.createElement('div');
-    todoCheckList.classList.add('todo-checklist');
-    todoCheckList.textContent = obj.checklist;
-
-    const changecompletion = document.createElement('button');
-    changecompletion.innerHTML = 'Mark as competed';
-    changecompletion.classList.add('change-completion');
-    changecompletion.addEventListener('click', () => {
-      obj.changeCompletionBtn(todoCheckList);
-    });
-
-    const editBtn = document.createElement('button');
-    editBtn.innerHTML = 'edit';
-    editBtn.type = 'button';
-    editBtn.classList.add('edit-todo');
-    editBtn.addEventListener('click', () => {
-      displayEditForm({
-        title: todoTitle,
-        description: todoDesc,
-        dueDate: todoDueDate,
-        notes: todoNotes,
-        priority: todoPriority,
-        checklist: todoCheckList,
-      }, obj);
-    });
-
-    todoItem.appendChild(todoTitle);
-    todoItem.appendChild(todoDesc);
-    todoItem.appendChild(todoDueDate);
-    todoItem.appendChild(todoNotes);
-    todoItem.appendChild(todoPriority);
-    todoItem.appendChild(priorityContainer);
-    todoItem.appendChild(todoCheckList);
-    todoItem.appendChild(changecompletion);
-    todoItem.appendChild(editBtn);
-
-    parent.appendChild(todoItem);
-  };
-
-  for (let i = 0; i < arr.length; i += 1) {
-    const obj = arr[i];
-    todoItemMaker(todoWrap, obj);
-  }
-
-  body.appendChild(todoWrap);
-};
 
 const clearElement = (id) => {
   const ele = document.getElementById(id);
