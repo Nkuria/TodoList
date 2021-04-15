@@ -17,7 +17,6 @@ const updateTodoItem = (domObj, todoObj) => {
   domObj.checklist.innerHTML = todoObj.checklist;
 };
 
-
 const displayTodoItems = (arr) => {
   const todoWrap = document.createElement('div');
   todoWrap.classList.add('todo-wrap');
@@ -157,7 +156,7 @@ const displayEditForm = (domObj, obj) => {
   highPriority.type = 'radio';
   highPriority.name = 'priority';
   highPriority.value = 'high';
-  if (obj.priority == highPriority.value) {
+  if (obj.priority === highPriority.value) {
     highPriority.checked = true;
   }
   listForm.appendChild(highPriority);
@@ -170,7 +169,7 @@ const displayEditForm = (domObj, obj) => {
   mediumPriority.type = 'radio';
   mediumPriority.name = 'priority';
   mediumPriority.value = 'medium';
-  if (obj.priority == mediumPriority.value) {
+  if (obj.priority === mediumPriority.value) {
     mediumPriority.checked = true;
   }
   listForm.appendChild(mediumPriority);
@@ -183,7 +182,7 @@ const displayEditForm = (domObj, obj) => {
   lowPriority.type = 'radio';
   lowPriority.name = 'priority';
   lowPriority.value = 'low';
-  if (obj.priority == lowPriority.value) {
+  if (obj.priority === lowPriority.value) {
     lowPriority.checked = true;
   }
   listForm.appendChild(lowPriority);
@@ -331,17 +330,42 @@ const newList = (arr) => {
   listForm.appendChild(todoBtn);
 };
 
-const newProjectBtn = document.createElement('button');
-newProjectBtn.classList.add('new-project-button');
-newProjectBtn.innerHTML = 'New Project';
-bodyLeft.appendChild(newProjectBtn);
-newProjectBtn.addEventListener('click', () => {
-  newProject(projects);
-})
+const displayProjects = (arr) => {
+  document.getElementById('project-form-container').remove();
+  const oldProjects = document.getElementById('project-wrap');
+  if (oldProjects != null) {
+    oldProjects.remove();
+  }
+
+  const projectWrap = document.createElement('div');
+  projectWrap.classList.add('project-wrap');
+  projectWrap.id = 'project-wrap';
+
+  const projectItemMaker = (parent, obj) => {
+    const projectItem = document.createElement('div');
+    projectItem.classList.add('todo-items');
+
+    const projectTitle = document.createElement('h3');
+    projectTitle.classList.add('todo-title');
+    projectTitle.textContent = obj.title;
+
+    projectItem.appendChild(projectTitle);
+
+    parent.appendChild(projectItem);
+  };
+
+  for (let i = 0; i < arr.length; i += 1) {
+    const obj = arr[i];
+    projectItemMaker(projectWrap, obj);
+  }
+
+  bodyLeft.appendChild(projectWrap);
+};
 
 const newProject = (projectArr) => {
   const projectFormContainer = document.createElement('div');
   projectFormContainer.classList.add('project-form-container');
+  projectFormContainer.id = 'project-form-container';
   bodyLeft.appendChild(projectFormContainer);
 
 
@@ -350,19 +374,29 @@ const newProject = (projectArr) => {
   projectFormContainer.appendChild(projectForm);
 
   const projectTitle = document.createElement('input');
-  projectTitle.placeholder = "Project Title";
+  projectTitle.placeholder = 'Project Title';
   projectForm.appendChild(projectTitle);
 
   const addProjectBtn = document.createElement('button');
-  addProjectBtn.innerHTML = "Create Project";
-  addProjectBtn.type = 'button'
+  addProjectBtn.innerHTML = 'Create Project';
+  addProjectBtn.type = 'button';
   projectForm.appendChild(addProjectBtn);
 
   addProjectBtn.addEventListener('click', () => {
-    projectArr.push(new Project(projectTitle.value))
+    projectArr.push(new Project(projectTitle.value));
+    displayProjects(projectArr);
   });
-  console.log(projectArr);
-}
+};
+
 const projects = [];
+
+
+const newProjectBtn = document.createElement('button');
+newProjectBtn.classList.add('new-project-button');
+newProjectBtn.innerHTML = 'New Project';
+bodyLeft.appendChild(newProjectBtn);
+newProjectBtn.addEventListener('click', () => {
+  newProject(projects);
+});
 
 export { newList, displayTodoItems };
