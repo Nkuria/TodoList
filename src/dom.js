@@ -1,6 +1,12 @@
 import Todo from './newTodo';
+import Project from './project';
 
 const body = document.getElementById('content');
+const bodyLeft = document.createElement('div');
+const bodyRight = document.createElement('div');
+
+body.appendChild(bodyLeft);
+body.appendChild(bodyRight);
 
 const updateTodoItem = (domObj, todoObj) => {
   domObj.title.innerHTML = todoObj.title;
@@ -115,14 +121,14 @@ const displayTodoItems = (arr) => {
     todoItemMaker(todoWrap, obj);
   }
 
-  body.appendChild(todoWrap);
+  bodyRight.appendChild(todoWrap);
 };
 
 const displayEditForm = (domObj, obj) => {
   const formContainer = document.createElement('div');
   formContainer.classList.add('form-container');
   formContainer.classList.add('modal');
-  body.appendChild(formContainer);
+  bodyRight.appendChild(formContainer);
 
   const listForm = document.createElement('form');
   listForm.classList.add('list-form');
@@ -234,7 +240,7 @@ const clearElement = (id) => {
 
 const newList = (arr) => {
   const formContainer = document.createElement('div');
-  body.appendChild(formContainer);
+  bodyRight.appendChild(formContainer);
   formContainer.classList.add('form-container');
 
   const listForm = document.createElement('form');
@@ -324,5 +330,39 @@ const newList = (arr) => {
   });
   listForm.appendChild(todoBtn);
 };
+
+const newProjectBtn = document.createElement('button');
+newProjectBtn.classList.add('new-project-button');
+newProjectBtn.innerHTML = 'New Project';
+bodyLeft.appendChild(newProjectBtn);
+newProjectBtn.addEventListener('click', () => {
+  newProject(projects);
+})
+
+const newProject = (projectArr) => {
+  const projectFormContainer = document.createElement('div');
+  projectFormContainer.classList.add('project-form-container');
+  bodyLeft.appendChild(projectFormContainer);
+
+
+  const projectForm = document.createElement('form');
+  projectForm.classList.add('project-form');
+  projectFormContainer.appendChild(projectForm);
+
+  const projectTitle = document.createElement('input');
+  projectTitle.placeholder = "Project Title";
+  projectForm.appendChild(projectTitle);
+
+  const addProjectBtn = document.createElement('button');
+  addProjectBtn.innerHTML = "Create Project";
+  addProjectBtn.type = 'button'
+  projectForm.appendChild(addProjectBtn);
+
+  addProjectBtn.addEventListener('click', () => {
+    projectArr.push(new Project(projectTitle.value))
+  });
+  console.log(projectArr);
+}
+const projects = [];
 
 export { newList, displayTodoItems };

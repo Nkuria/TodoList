@@ -9,7 +9,9 @@ function Project(title) {
     }
 
     this.deleteTodo = (index) => {
-        
+        this.todos.splice(index, 1);
     }
 
 }
+
+export {Project as default};
