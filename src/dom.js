@@ -9,6 +9,10 @@ body.appendChild(bodyLeft);
 body.appendChild(bodyRight);
 
 const updateTodoItem = (domObj, todoObj) => {
+  const oldForm = document.getElementById('edit-todo-form');
+  if (oldForm != null) {
+    oldForm.remove();
+  }
   domObj.title.innerHTML = todoObj.title;
   domObj.description.innerHTML = todoObj.description;
   domObj.dueDate.innerHTML = todoObj.dueDate;
@@ -18,6 +22,10 @@ const updateTodoItem = (domObj, todoObj) => {
 };
 
 const displayTodoItems = (arr) => {
+  const oldTodos = document.getElementById('todo-wrap');
+  if (oldTodos != null) {
+    oldTodos.remove();
+  }
   const todoWrap = document.createElement('div');
   todoWrap.classList.add('todo-wrap');
   todoWrap.id = 'todo-wrap';
@@ -127,6 +135,7 @@ const displayEditForm = (domObj, obj) => {
   const formContainer = document.createElement('div');
   formContainer.classList.add('form-container');
   formContainer.classList.add('modal');
+  formContainer.id = 'edit-todo-form';
   bodyRight.appendChild(formContainer);
 
   const listForm = document.createElement('form');
@@ -237,10 +246,15 @@ const clearElement = (id) => {
   ele.innerHTML = '';
 };
 
-const newList = (arr) => {
+const newList = (obj) => {
+  const oldForm = document.getElementById('form-container');
+  if (oldForm != null) {
+    oldForm.remove();
+  }
   const formContainer = document.createElement('div');
   bodyRight.appendChild(formContainer);
   formContainer.classList.add('form-container');
+  formContainer.id = ('form-container');
 
   const listForm = document.createElement('form');
   listForm.classList.add('list-form');
@@ -316,7 +330,7 @@ const newList = (arr) => {
   todoBtn.type = 'button';
   todoBtn.textContent = 'add';
   todoBtn.addEventListener('click', () => {
-    arr.push(new Todo(
+    obj.todos.push(new Todo(
       todoTitle.value,
       todoDescription.value,
       todoDueDate.value,
@@ -325,13 +339,16 @@ const newList = (arr) => {
       todoComplete(),
     ));
     clearElement('todo-wrap');
-    displayTodoItems(arr);
+    displayTodoItems(obj.todos);
   });
   listForm.appendChild(todoBtn);
 };
 
 const displayProjects = (arr) => {
-  document.getElementById('project-form-container').remove();
+  const oldForm = document.getElementById('project-form-container');
+  if (oldForm != null) {
+    oldForm.remove();
+  }
   const oldProjects = document.getElementById('project-wrap');
   if (oldProjects != null) {
     oldProjects.remove();
@@ -343,7 +360,11 @@ const displayProjects = (arr) => {
 
   const projectItemMaker = (parent, obj) => {
     const projectItem = document.createElement('div');
-    projectItem.classList.add('todo-items');
+    projectItem.classList.add('project-items');
+    projectItem.addEventListener('click', () => {
+      newList(obj);
+      displayTodoItems(obj.todos);
+    });
 
     const projectTitle = document.createElement('h3');
     projectTitle.classList.add('todo-title');
@@ -399,4 +420,4 @@ newProjectBtn.addEventListener('click', () => {
   newProject(projects);
 });
 
-export { newList, displayTodoItems };
+export { newList, displayTodoItems, displayProjects };
