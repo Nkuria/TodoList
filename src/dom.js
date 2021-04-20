@@ -21,7 +21,7 @@ const updateTodoItem = (domObj, todoObj) => {
   domObj.checklist.innerHTML = todoObj.checklist;
 };
 
-const displayTodoItems = (arr) => {
+const displayTodoItems = (arr, project) => {
   const oldTodos = document.getElementById('todo-wrap');
   if (oldTodos != null) {
     oldTodos.remove();
@@ -30,7 +30,7 @@ const displayTodoItems = (arr) => {
   todoWrap.classList.add('todo-wrap');
   todoWrap.id = 'todo-wrap';
 
-  const todoItemMaker = (parent, obj) => {
+  const todoItemMaker = (parent, obj, index, project) => {
     const todoItem = document.createElement('div');
     todoItem.classList.add('todo-items');
 
@@ -110,6 +110,14 @@ const displayTodoItems = (arr) => {
       }, obj);
     });
 
+    const deleteTodoBtn = document.createElement('button');
+
+    deleteTodoBtn.innerHTML = 'Delete ToDo';
+    deleteTodoBtn.classList.add('delete-todo-btn');
+    deleteTodoBtn.addEventListener('click', () => {
+      project.deleteTodo(0);
+    });
+  
     todoItem.appendChild(todoTitle);
     todoItem.appendChild(todoDesc);
     todoItem.appendChild(todoDueDate);
@@ -119,13 +127,17 @@ const displayTodoItems = (arr) => {
     todoItem.appendChild(todoCheckList);
     todoItem.appendChild(changecompletion);
     todoItem.appendChild(editBtn);
+    todoItem.appendChild(deleteTodoBtn);
 
     parent.appendChild(todoItem);
   };
 
+  
+
   for (let i = 0; i < arr.length; i += 1) {
     const obj = arr[i];
-    todoItemMaker(todoWrap, obj);
+    const index = i;
+    todoItemMaker(todoWrap, obj, index, project);
   }
 
   bodyRight.appendChild(todoWrap);
@@ -246,7 +258,7 @@ const clearElement = (id) => {
   ele.innerHTML = '';
 };
 
-const newList = (obj) => {
+const newList = (project) => {
   const oldForm = document.getElementById('form-container');
   if (oldForm != null) {
     oldForm.remove();
@@ -330,7 +342,7 @@ const newList = (obj) => {
   todoBtn.type = 'button';
   todoBtn.textContent = 'add';
   todoBtn.addEventListener('click', () => {
-    obj.todos.push(new Todo(
+    project.addTodo(new Todo(
       todoTitle.value,
       todoDescription.value,
       todoDueDate.value,
@@ -339,7 +351,7 @@ const newList = (obj) => {
       todoComplete(),
     ));
     clearElement('todo-wrap');
-    displayTodoItems(obj.todos);
+    displayTodoItems(project.todos);
   });
   listForm.appendChild(todoBtn);
 };
@@ -358,17 +370,17 @@ const displayProjects = (arr) => {
   projectWrap.classList.add('project-wrap');
   projectWrap.id = 'project-wrap';
 
-  const projectItemMaker = (parent, obj) => {
+  const projectItemMaker = (parent, project) => {
     const projectItem = document.createElement('div');
     projectItem.classList.add('project-items');
     projectItem.addEventListener('click', () => {
-      newList(obj);
-      displayTodoItems(obj.todos);
+      newList(project);
+      displayTodoItems(project.todos, project);
     });
 
     const projectTitle = document.createElement('h3');
     projectTitle.classList.add('todo-title');
-    projectTitle.textContent = obj.title;
+    projectTitle.textContent = project.title;
 
     projectItem.appendChild(projectTitle);
 
@@ -376,8 +388,8 @@ const displayProjects = (arr) => {
   };
 
   for (let i = 0; i < arr.length; i += 1) {
-    const obj = arr[i];
-    projectItemMaker(projectWrap, obj);
+    const project = arr[i];
+    projectItemMaker(projectWrap, project);
   }
 
   bodyLeft.appendChild(projectWrap);

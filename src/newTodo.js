@@ -24,6 +24,10 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
     target.innerHTML = 'completed';
     this.checklist = 'completed';
   };
+
+  // this.deleteTodo = (index) => {
+  //   this.todos.splice(index, 1);
+  // };
 }
 
 export default Todo;
