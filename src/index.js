@@ -3,4 +3,3 @@ import { fetchItem } from './localStorage';
 
 
 displayProjects(fetchItem('projects'));
-// newList(todos);

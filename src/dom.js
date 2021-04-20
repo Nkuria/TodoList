@@ -225,7 +225,8 @@ const displayTodoItems = (arr, project) => {
     deleteTodoBtn.innerHTML = 'Delete ToDo';
     deleteTodoBtn.classList.add('delete-todo-btn');
     deleteTodoBtn.addEventListener('click', () => {
-      project.deleteTodo(0);
+      project.deleteTodo(index);
+      todoItem.remove();
     });
 
     todoItem.appendChild(todoTitle);
@@ -351,7 +352,7 @@ const newList = (project) => {
       todoComplete(),
     ));
     clearElement('todo-wrap');
-    displayTodoItems(project.todos);
+    displayTodoItems(project.todos, project);
   });
   listForm.appendChild(todoBtn);
 };
