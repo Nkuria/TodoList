@@ -1,5 +1,6 @@
 import Todo from './newTodo';
 import Project from './project';
+import { fetchItem, addItem } from './localStorage';
 
 const body = document.getElementById('content');
 const bodyLeft = document.createElement('div');
@@ -19,128 +20,6 @@ const updateTodoItem = (domObj, todoObj) => {
   domObj.notes.innerHTML = todoObj.notes;
   domObj.priority.innerHTML = todoObj.priority;
   domObj.checklist.innerHTML = todoObj.checklist;
-};
-
-const displayTodoItems = (arr, project) => {
-  const oldTodos = document.getElementById('todo-wrap');
-  if (oldTodos != null) {
-    oldTodos.remove();
-  }
-  const todoWrap = document.createElement('div');
-  todoWrap.classList.add('todo-wrap');
-  todoWrap.id = 'todo-wrap';
-
-  const todoItemMaker = (parent, obj, index, project) => {
-    const todoItem = document.createElement('div');
-    todoItem.classList.add('todo-items');
-
-    const todoTitle = document.createElement('h3');
-    todoTitle.classList.add('todo-title');
-    todoTitle.textContent = obj.title;
-
-    const todoDesc = document.createElement('p');
-    todoDesc.classList.add('todo-desc');
-    todoDesc.textContent = obj.description;
-
-    const todoDueDate = document.createElement('p');
-    todoDueDate.classList.add('todo-date');
-    todoDueDate.textContent = obj.dueDate;
-
-    const todoNotes = document.createElement('p');
-    todoNotes.classList.add('todo-notes');
-    todoNotes.textContent = obj.notes;
-
-    const todoPriority = document.createElement('div');
-    todoPriority.classList.add('todo-priority');
-    todoPriority.textContent = obj.priority;
-
-    const priorityContainer = document.createElement('div');
-    priorityContainer.classList.add('priority-container');
-
-
-    const highPriority = document.createElement('button');
-    highPriority.innerHTML = 'Change to high';
-    highPriority.classList.add('high-priority');
-    highPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'high');
-    });
-
-    const mediumPriority = document.createElement('button');
-    mediumPriority.innerHTML = 'Change to Medium';
-    mediumPriority.classList.add('medium-priority');
-    mediumPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'medium');
-    });
-
-    const normalPriority = document.createElement('button');
-    normalPriority.innerHTML = 'Change to Low';
-    normalPriority.classList.add('high-priority');
-    normalPriority.addEventListener('click', () => {
-      obj.changePriority(todoPriority, 'low');
-    });
-
-    priorityContainer.appendChild(highPriority);
-    priorityContainer.appendChild(mediumPriority);
-    priorityContainer.appendChild(normalPriority);
-
-
-    const todoCheckList = document.createElement('div');
-    todoCheckList.classList.add('todo-checklist');
-    todoCheckList.textContent = obj.checklist;
-
-    const changecompletion = document.createElement('button');
-    changecompletion.innerHTML = 'Mark as completed';
-    changecompletion.classList.add('change-completion');
-    changecompletion.addEventListener('click', () => {
-      obj.changeCompletionBtn(todoCheckList);
-    });
-
-    const editBtn = document.createElement('button');
-    editBtn.innerHTML = 'edit';
-    editBtn.type = 'button';
-    editBtn.classList.add('edit-todo');
-    editBtn.addEventListener('click', () => {
-      displayEditForm({
-        title: todoTitle,
-        description: todoDesc,
-        dueDate: todoDueDate,
-        notes: todoNotes,
-        priority: todoPriority,
-        checklist: todoCheckList,
-      }, obj);
-    });
-
-    const deleteTodoBtn = document.createElement('button');
-
-    deleteTodoBtn.innerHTML = 'Delete ToDo';
-    deleteTodoBtn.classList.add('delete-todo-btn');
-    deleteTodoBtn.addEventListener('click', () => {
-      project.deleteTodo(0);
-    });
-  
-    todoItem.appendChild(todoTitle);
-    todoItem.appendChild(todoDesc);
-    todoItem.appendChild(todoDueDate);
-    todoItem.appendChild(todoNotes);
-    todoItem.appendChild(todoPriority);
-    todoItem.appendChild(priorityContainer);
-    todoItem.appendChild(todoCheckList);
-    todoItem.appendChild(changecompletion);
-    todoItem.appendChild(editBtn);
-    todoItem.appendChild(deleteTodoBtn);
-
-    parent.appendChild(todoItem);
-  };
-
-  
-
-  for (let i = 0; i < arr.length; i += 1) {
-    const obj = arr[i];
-    const index = i;
-    todoItemMaker(todoWrap, obj, index, project);
-  }
-
-  bodyRight.appendChild(todoWrap);
 };
 
 const displayEditForm = (domObj, obj) => {
@@ -250,6 +129,127 @@ const displayEditForm = (domObj, obj) => {
     updateTodoItem(domObj, obj);
   });
   listForm.appendChild(saveTodoBtn);
+};
+
+const displayTodoItems = (arr, project) => {
+  const oldTodos = document.getElementById('todo-wrap');
+  if (oldTodos != null) {
+    oldTodos.remove();
+  }
+  const todoWrap = document.createElement('div');
+  todoWrap.classList.add('todo-wrap');
+  todoWrap.id = 'todo-wrap';
+
+  const todoItemMaker = (parent, obj, index, project) => {
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-items');
+
+    const todoTitle = document.createElement('h3');
+    todoTitle.classList.add('todo-title');
+    todoTitle.textContent = obj.title;
+
+    const todoDesc = document.createElement('p');
+    todoDesc.classList.add('todo-desc');
+    todoDesc.textContent = obj.description;
+
+    const todoDueDate = document.createElement('p');
+    todoDueDate.classList.add('todo-date');
+    todoDueDate.textContent = obj.dueDate;
+
+    const todoNotes = document.createElement('p');
+    todoNotes.classList.add('todo-notes');
+    todoNotes.textContent = obj.notes;
+
+    const todoPriority = document.createElement('div');
+    todoPriority.classList.add('todo-priority');
+    todoPriority.textContent = obj.priority;
+
+    const priorityContainer = document.createElement('div');
+    priorityContainer.classList.add('priority-container');
+
+
+    const highPriority = document.createElement('button');
+    highPriority.innerHTML = 'Change to high';
+    highPriority.classList.add('high-priority');
+    highPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'high');
+    });
+
+    const mediumPriority = document.createElement('button');
+    mediumPriority.innerHTML = 'Change to Medium';
+    mediumPriority.classList.add('medium-priority');
+    mediumPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'medium');
+    });
+
+    const normalPriority = document.createElement('button');
+    normalPriority.innerHTML = 'Change to Low';
+    normalPriority.classList.add('high-priority');
+    normalPriority.addEventListener('click', () => {
+      obj.changePriority(todoPriority, 'low');
+    });
+
+    priorityContainer.appendChild(highPriority);
+    priorityContainer.appendChild(mediumPriority);
+    priorityContainer.appendChild(normalPriority);
+
+
+    const todoCheckList = document.createElement('div');
+    todoCheckList.classList.add('todo-checklist');
+    todoCheckList.textContent = obj.checklist;
+
+    const changecompletion = document.createElement('button');
+    changecompletion.innerHTML = 'Mark as completed';
+    changecompletion.classList.add('change-completion');
+    changecompletion.addEventListener('click', () => {
+      obj.changeCompletionBtn(todoCheckList);
+    });
+
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = 'edit';
+    editBtn.type = 'button';
+    editBtn.classList.add('edit-todo');
+    editBtn.addEventListener('click', () => {
+      displayEditForm({
+        title: todoTitle,
+        description: todoDesc,
+        dueDate: todoDueDate,
+        notes: todoNotes,
+        priority: todoPriority,
+        checklist: todoCheckList,
+      }, obj);
+    });
+
+    const deleteTodoBtn = document.createElement('button');
+
+    deleteTodoBtn.innerHTML = 'Delete ToDo';
+    deleteTodoBtn.classList.add('delete-todo-btn');
+    deleteTodoBtn.addEventListener('click', () => {
+      project.deleteTodo(0);
+    });
+
+    todoItem.appendChild(todoTitle);
+    todoItem.appendChild(todoDesc);
+    todoItem.appendChild(todoDueDate);
+    todoItem.appendChild(todoNotes);
+    todoItem.appendChild(todoPriority);
+    todoItem.appendChild(priorityContainer);
+    todoItem.appendChild(todoCheckList);
+    todoItem.appendChild(changecompletion);
+    todoItem.appendChild(editBtn);
+    todoItem.appendChild(deleteTodoBtn);
+
+    parent.appendChild(todoItem);
+  };
+
+
+  for (let i = 0; i < arr.length; i += 1) {
+    const obj = arr[i];
+    const index = i;
+    todoItemMaker(todoWrap, obj, index, project);
+  }
+
+  bodyRight.appendChild(todoWrap);
 };
 
 
@@ -395,7 +395,7 @@ const displayProjects = (arr) => {
   bodyLeft.appendChild(projectWrap);
 };
 
-const newProject = (projectArr) => {
+const newProject = () => {
   const projectFormContainer = document.createElement('div');
   projectFormContainer.classList.add('project-form-container');
   projectFormContainer.id = 'project-form-container';
@@ -416,20 +416,17 @@ const newProject = (projectArr) => {
   projectForm.appendChild(addProjectBtn);
 
   addProjectBtn.addEventListener('click', () => {
-    projectArr.push(new Project(projectTitle.value));
-    displayProjects(projectArr);
+    addItem('projects', new Project(projectTitle.value));
+    displayProjects(fetchItem('projects'));
   });
 };
-
-const projects = [];
-
 
 const newProjectBtn = document.createElement('button');
 newProjectBtn.classList.add('new-project-button');
 newProjectBtn.innerHTML = 'New Project';
 bodyLeft.appendChild(newProjectBtn);
 newProjectBtn.addEventListener('click', () => {
-  newProject(projects);
+  newProject();
 });
 
 export { newList, displayTodoItems, displayProjects };
