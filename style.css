@@ -25,6 +25,7 @@ input {
     border-bottom:1px solid #e76f51;
     margin-right: 2%;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    margin-bottom: 2%;
 }
 
 .heading-container {
@@ -52,12 +53,14 @@ input {
     padding-bottom: 5%;
 }
 
-/* .body-left {
-} */
+.body-left {
+    position: relative;
+}
 
 .body-right {
     padding: 1rem 0;
     margin-right: 5%;
+    
 }
 
 .add-project-btn {
@@ -69,8 +72,27 @@ input {
 }
 
 .form-container {
-    margin-bottom: 4%;
+    position: relative;
+      
+    
 
+}
+.list-form {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;  
+    background: #777;
+    font-size: 1.5em;
+    width: 50%;
+    padding: 3% 5%;
+}
+
+.list-form input{
+    margin-bottom: 5%;
+    
 }
 
 .todo-items {
@@ -136,15 +158,15 @@ input {
 }
 
 .high-priority {
- background-color: red;
+ background-color: #EB5A46;
 }
 
 .medium-priority {
-   background-color: yellow;
+   background-color: #FF9F1A;
 }
 
 .low-priority {
-    background-color: green;
+    background-color: #F2D600;
 }
 
 .state-controls {
@@ -181,3 +203,20 @@ input {
     font-size: 1.2rem;
     font-weight: 700;
 }
+
+.new-project-button, .todoBtn, #show-project-form-btn {
+    margin-bottom: 3%;
+    padding: 8px;
+}
+
+/* #project-form-container {
+    position: relative;
+} */
+
+.project-form {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    display: flex;
+}
+
