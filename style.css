@@ -1,4 +1,35 @@
-#content {
+body {
+    
+    margin: 0;
+}
+
+.heading-container {
+    background-color:#4044C9;
+    padding-bottom: 5%;
+    padding-top: 3%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-left: 2%;
+}
+
+.heading-container h3 {
+    color: white;
+}
+
+.body-container {
     display: grid;
     grid-template-columns: 30% 70%;
+    background-color: white;
+    
+    padding-top: 3%;
+    height: 100%;
+    
+    padding-left: 2%;
+}
+button {
+    padding: 2%;
+    border-radius: 7px;
+    border: none;
+    background-color: #4044C9;
+    color: white;
 }
