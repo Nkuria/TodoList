@@ -125,7 +125,7 @@ const displayEditForm = (domObj, obj) => {
     return lowPriority.value;
   };
 
-  const todoComplete = () => ((todoCheckList.checked === true) ? 'completed' : 'pending');
+  const todoComplete = 'pending';
 
   const saveTodoBtn = document.createElement('button');
   saveTodoBtn.type = 'button';
@@ -138,7 +138,7 @@ const displayEditForm = (domObj, obj) => {
       todoDueDate.value,
       todoPriority(),
       todoNote.value,
-      todoComplete(),
+      todoComplete,
     );
 
     updateTodoItem(domObj, obj);
@@ -363,13 +363,13 @@ const newList = (project, arr, index) => {
   todoNote.placeholder = 'Add Note';
   listForm.appendChild(todoNote);
 
-  const completeLabel = document.createElement('label');
-  completeLabel.textContent = 'Completed';
-  listForm.appendChild(completeLabel);
+  // const completeLabel = document.createElement('label');
+  // completeLabel.textContent = 'Completed';
+  // listForm.appendChild(completeLabel);
 
-  const todoCheckList = document.createElement('input');
-  todoCheckList.type = 'checkbox';
-  listForm.appendChild(todoCheckList);
+  // const todoCheckList = document.createElement('input');
+  // todoCheckList.type = 'checkbox';
+  // listForm.appendChild(todoCheckList);
 
   const todoPriority = () => {
     if (highPriority.checked === true) {
@@ -380,9 +380,10 @@ const newList = (project, arr, index) => {
     return lowPriority.value;
   };
 
-  const todoComplete = () => ((todoCheckList.checked === true) ? 'completed' : 'pending');
+  const todoComplete = 'pending';
 
   const todoBtn = document.createElement('button');
+  todoBtn.classList.add('todo-btn');
   todoBtn.type = 'button';
   todoBtn.textContent = '+';
   todoBtn.addEventListener('click', () => {
@@ -392,7 +393,7 @@ const newList = (project, arr, index) => {
       todoDueDate.value,
       todoPriority(),
       todoNote.value,
-      todoComplete(),
+      todoComplete,
     ));
     arr[index] = project;
     storeItem('projects', arr);
