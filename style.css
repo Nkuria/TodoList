@@ -11,7 +11,6 @@ body {
 
 button {
     background-color: #e76f51;
-    /* padding: 2%; */
     border: 0;
     border-radius: 7px;
     margin-right: 2%;
@@ -240,9 +239,7 @@ input {
     padding: 8px;
 }
 
-/* #project-form-container {
-    position: relative;
-} */
+
 
 .project-form {
     position: absolute;
