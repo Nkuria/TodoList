@@ -39,14 +39,23 @@ const updateTodoItem = (domObj, todoObj) => {
 
 const displayEditForm = (domObj, obj) => {
   const formContainer = document.createElement('div');
-  formContainer.classList.add('form-container');
+  formContainer.classList.add('edit-form-container');
   formContainer.classList.add('modal');
   formContainer.id = 'edit-todo-form';
   bodyRight.appendChild(formContainer);
 
+
   const listForm = document.createElement('form');
-  listForm.classList.add('list-form');
+  listForm.classList.add('edit-form');
   formContainer.appendChild(listForm);
+
+  const closeForm = document.createElement('div');
+  closeForm.innerHTML = '<span class="iconify" data-icon="ion:close" data-inline="false"></span>';
+  closeForm.classList.add('close-form');
+  listForm.prepend(closeForm);
+  closeForm.addEventListener ('click', () => {
+    formContainer.remove();
+  })
 
   const todoTitle = document.createElement('input');
   todoTitle.placeholder = 'Enter Title';
@@ -320,6 +329,15 @@ const newList = (project, arr, index) => {
   todoTitle.placeholder = 'Enter Title';
   listForm.appendChild(todoTitle);
 
+  const closeForm = document.createElement('div');
+  closeForm.innerHTML = '<span class="iconify" data-icon="ion:close" data-inline="false"></span>';
+  closeForm.classList.add('close-form');
+  listForm.prepend(closeForm);
+  closeForm.addEventListener ('click', () => {
+    formContainer.remove();
+  })
+
+
   const todoDescription = document.createElement('input');
   todoDescription.placeholder = 'Enter Description';
   listForm.appendChild(todoDescription);
@@ -437,18 +455,37 @@ const displayProjects = (arr) => {
   const projectItemMaker = (parent, project, index) => {
     const projectItem = document.createElement('div');
     projectItem.classList.add('project-items');
-    projectItem.addEventListener('click', () => {
-      showFormBtn(project, arr, index);
-      displayTodoItems(project.todos, project, arr, index);
-    });
-
+    
     const projectTitle = document.createElement('h3');
     projectTitle.classList.add('project-title');
     projectTitle.textContent = `${project.title} (${project.todos.length})`;
 
+    projectTitle.addEventListener('click', () => {
+      showFormBtn(project, arr, index);
+      displayTodoItems(project.todos, project, arr, index);
+    });
+
+
     projectItem.appendChild(projectTitle);
 
+    const deleteProject = document.createElement('button');
+    deleteProject.classList.add('delete-project')
+    deleteProject.innerHTML  = '<span class="iconify" data-icon="ic:baseline-delete-outline" data-inline="false"></span>';
+    deleteProject.addEventListener('click', () => {
+      arr.splice(index, 1);
+      storeItem('projects', arr);
+      displayProjects(fetchItem('projects'));
+
+    });
+    if(index != 0){
+      projectItem.appendChild(deleteProject);
+    }
+
+    
+
     parent.appendChild(projectItem);
+
+    
   };
 
   for (let i = 0; i < arr.length; i += 1) {
@@ -475,7 +512,7 @@ const newProject = () => {
   projectForm.appendChild(projectTitle);
 
   const addProjectBtn = document.createElement('button');
-  addProjectBtn.innerHTML = 'Create Project';
+  addProjectBtn.innerHTML = 'Create';
   addProjectBtn.classList.add('add-project-btn');
   addProjectBtn.type = 'button';
   projectForm.appendChild(addProjectBtn);
