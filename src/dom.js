@@ -7,13 +7,13 @@ const body = document.getElementById('content');
 const headingContainer = document.createElement('div');
 headingContainer.classList.add('heading-container');
 const heading = document.createElement('h3');
-heading.textContent = "ToDo List"
+heading.textContent = 'ToDo List';
 headingContainer.appendChild(heading);
-body.appendChild(headingContainer)
+body.appendChild(headingContainer);
 
 const bodyContainer = document.createElement('div');
 bodyContainer.classList.add('body-container');
-body.appendChild(bodyContainer)
+body.appendChild(bodyContainer);
 
 
 const bodyLeft = document.createElement('div');
@@ -374,10 +374,21 @@ const newList = (project, arr, index) => {
     storeItem('projects', arr);
     clearElement('todo-wrap');
     displayTodoItems(project.todos, project, arr, index);
-    formContainer.innerHTML = "";
+    formContainer.innerHTML = '';
   });
   listForm.appendChild(todoBtn);
 };
+
+const showFormBtn = (project, arr, index) => {
+  const showBtn = document.createElement('button');
+  showBtn.type = 'button';
+  showBtn.textContent = 'Create New ToDo';
+  showBtn.addEventListener('click', () => {
+    newList(project, arr, index);
+  });
+  bodyRight.appendChild(showBtn);
+};
+
 
 const displayProjects = (arr) => {
   const oldForm = document.getElementById('project-form-container');
@@ -435,7 +446,7 @@ const newProject = () => {
 
   const addProjectBtn = document.createElement('button');
   addProjectBtn.innerHTML = 'Create Project';
-  addProjectBtn.classList.add("add-project-btn");
+  addProjectBtn.classList.add('add-project-btn');
   addProjectBtn.type = 'button';
   projectForm.appendChild(addProjectBtn);
 
@@ -452,16 +463,5 @@ bodyLeft.appendChild(newProjectBtn);
 newProjectBtn.addEventListener('click', () => {
   newProject();
 });
-
-const showFormBtn = (project, arr, index) => {
-  const showBtn = document.createElement('button');
-  showBtn.type = 'button';
-  showBtn.textContent = 'Create New ToDo';
-  showBtn.addEventListener('click', () => {
-    newList(project, arr, index);
-  });
-  bodyRight.appendChild(showBtn);
-
-}
 
 export { newList, displayTodoItems, displayProjects };

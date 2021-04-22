@@ -43,6 +43,10 @@ const convertJsonToProject = (jsonArr) => {
   return projects;
 };
 
+const storeItem = (name, data) => window.localStorage.setItem(name, JSON.stringify(data));
+
+const defaultProjects = [projectOne];
+
 const fetchItem = name => {
   const json = JSON.parse(window.localStorage.getItem(name));
   if (json == null) {
@@ -51,16 +55,10 @@ const fetchItem = name => {
   return convertJsonToProject(json);
 };
 
-const storeItem = (name, data) => window.localStorage.setItem(name, JSON.stringify(data));
-
 const addItem = (name, projectObj) => {
   const projectArr = fetchItem(name);
   projectArr.push(projectObj);
   storeItem(name, projectArr);
 };
-
-
-const defaultProjects = [projectOne];
-
 
 export { fetchItem, storeItem, addItem };
