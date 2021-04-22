@@ -15,7 +15,6 @@ const bodyContainer = document.createElement('div');
 bodyContainer.classList.add('body-container');
 body.appendChild(bodyContainer);
 
-
 const bodyLeft = document.createElement('div');
 bodyLeft.classList.add('body-left');
 const bodyRight = document.createElement('div');
@@ -44,7 +43,6 @@ const displayEditForm = (domObj, obj) => {
   formContainer.id = 'edit-todo-form';
   bodyRight.appendChild(formContainer);
 
-
   const listForm = document.createElement('form');
   listForm.classList.add('edit-form');
   formContainer.appendChild(listForm);
@@ -53,9 +51,9 @@ const displayEditForm = (domObj, obj) => {
   closeForm.innerHTML = '<span class="iconify" data-icon="ion:close" data-inline="false"></span>';
   closeForm.classList.add('close-form');
   listForm.prepend(closeForm);
-  closeForm.addEventListener ('click', () => {
+  closeForm.addEventListener('click', () => {
     formContainer.remove();
-  })
+  });
 
   const todoTitle = document.createElement('input');
   todoTitle.placeholder = 'Enter Title';
@@ -197,7 +195,6 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     const priorityContainer = document.createElement('div');
     priorityContainer.classList.add('priority-container');
 
-
     const highPriority = document.createElement('button');
     highPriority.classList.add('high-priority');
     highPriority.addEventListener('click', () => {
@@ -221,7 +218,6 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     priorityContainer.appendChild(highPriority);
     priorityContainer.appendChild(mediumPriority);
     priorityContainer.appendChild(normalPriority);
-
 
     priorityWrap.appendChild(todoPriority);
     priorityWrap.appendChild(priorityContainer);
@@ -295,7 +291,6 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     parent.appendChild(todoItem);
   };
 
-
   for (let i = 0; i < arr.length; i += 1) {
     const obj = arr[i];
     const index = i;
@@ -304,7 +299,6 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
 
   bodyRight.appendChild(todoWrap);
 };
-
 
 const clearElement = (id) => {
   const ele = document.getElementById(id);
@@ -333,10 +327,9 @@ const newList = (project, arr, index) => {
   closeForm.innerHTML = '<span class="iconify" data-icon="ion:close" data-inline="false"></span>';
   closeForm.classList.add('close-form');
   listForm.prepend(closeForm);
-  closeForm.addEventListener ('click', () => {
+  closeForm.addEventListener('click', () => {
     formContainer.remove();
-  })
-
+  });
 
   const todoDescription = document.createElement('input');
   todoDescription.placeholder = 'Enter Description';
@@ -437,7 +430,6 @@ const showFormBtn = (project, arr, index) => {
   bodyRight.appendChild(showBtn);
 };
 
-
 const displayProjects = (arr) => {
   const oldForm = document.getElementById('project-form-container');
   if (oldForm != null) {
@@ -455,7 +447,7 @@ const displayProjects = (arr) => {
   const projectItemMaker = (parent, project, index) => {
     const projectItem = document.createElement('div');
     projectItem.classList.add('project-items');
-    
+
     const projectTitle = document.createElement('h3');
     projectTitle.classList.add('project-title');
     projectTitle.textContent = `${project.title} (${project.todos.length})`;
@@ -465,27 +457,21 @@ const displayProjects = (arr) => {
       displayTodoItems(project.todos, project, arr, index);
     });
 
-
     projectItem.appendChild(projectTitle);
 
     const deleteProject = document.createElement('button');
-    deleteProject.classList.add('delete-project')
-    deleteProject.innerHTML  = '<span class="iconify" data-icon="ic:baseline-delete-outline" data-inline="false"></span>';
+    deleteProject.classList.add('delete-project');
+    deleteProject.innerHTML = '<span class="iconify" data-icon="ic:baseline-delete-outline" data-inline="false"></span>';
     deleteProject.addEventListener('click', () => {
       arr.splice(index, 1);
       storeItem('projects', arr);
       displayProjects(fetchItem('projects'));
-
     });
-    if(index != 0){
+    if (index !== 0) {
       projectItem.appendChild(deleteProject);
     }
 
-    
-
     parent.appendChild(projectItem);
-
-    
   };
 
   for (let i = 0; i < arr.length; i += 1) {
@@ -501,7 +487,6 @@ const newProject = () => {
   projectFormContainer.classList.add('project-form-container');
   projectFormContainer.id = 'project-form-container';
   bodyLeft.appendChild(projectFormContainer);
-
 
   const projectForm = document.createElement('form');
   projectForm.classList.add('project-form');
