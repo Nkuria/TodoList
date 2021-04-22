@@ -39,6 +39,7 @@ input {
 
 .heading-container h3 {
     color: white;
+    font-size: 5em;
 }
 
 .body-container {
@@ -60,6 +61,7 @@ input {
 .body-right {
     padding: 1rem 0;
     margin-right: 5%;
+    position: relative;
     
 }
 
@@ -72,11 +74,34 @@ input {
 }
 
 .form-container {
-    position: relative;
-      
-    
+    position: relative;   
 
 }
+
+
+
+.edit-form {
+    position: absolute;
+    top: 0;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;  
+    background: #777;
+    font-size: 1.5em;
+    width: 50%;
+    padding: 3% 5%;
+}
+
+.close-form {
+    position: absolute;
+    top: 2%;
+    font-size: 1.5em;
+    right: 1%;
+}
+
 .list-form {
     position: absolute;
     top: 0;
@@ -197,6 +222,12 @@ input {
      -moz-box-shadow: 0 10px 6px -6px #777;
           box-shadow: 0 10px 6px -6px #777;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-project .iconify {
+    font-size: 1.7em;
 }
 
 .project-title {
