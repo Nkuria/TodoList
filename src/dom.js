@@ -1,13 +1,26 @@
 import Todo from './newTodo';
 import Project from './project';
-import { fetchItem, addItem } from './localStorage';
+import { fetchItem, addItem, storeItem } from './localStorage';
 
 const body = document.getElementById('content');
+
+const headingContainer = document.createElement('div');
+headingContainer.classList.add('heading-container');
+const heading = document.createElement('h3');
+heading.textContent = "ToDo List"
+headingContainer.appendChild(heading);
+body.appendChild(headingContainer)
+
+const bodyContainer = document.createElement('div');
+bodyContainer.classList.add('body-container');
+body.appendChild(bodyContainer)
+
+
 const bodyLeft = document.createElement('div');
 const bodyRight = document.createElement('div');
 
-body.appendChild(bodyLeft);
-body.appendChild(bodyRight);
+bodyContainer.appendChild(bodyLeft);
+bodyContainer.appendChild(bodyRight);
 
 const updateTodoItem = (domObj, todoObj) => {
   const oldForm = document.getElementById('edit-todo-form');
@@ -131,7 +144,9 @@ const displayEditForm = (domObj, obj) => {
   listForm.appendChild(saveTodoBtn);
 };
 
-const displayTodoItems = (arr, project) => {
+const displayTodoItems = (arr, project, projectArr, projectIndex) => {
+  console.log(projectArr);
+  console.log(projectIndex);
   const oldTodos = document.getElementById('todo-wrap');
   if (oldTodos != null) {
     oldTodos.remove();
@@ -226,6 +241,8 @@ const displayTodoItems = (arr, project) => {
     deleteTodoBtn.classList.add('delete-todo-btn');
     deleteTodoBtn.addEventListener('click', () => {
       project.deleteTodo(index);
+      projectArr[projectIndex] = project;
+      storeItem('projects', projectArr);
       todoItem.remove();
     });
 
@@ -259,7 +276,7 @@ const clearElement = (id) => {
   ele.innerHTML = '';
 };
 
-const newList = (project) => {
+const newList = (project, arr, index) => {
   const oldForm = document.getElementById('form-container');
   if (oldForm != null) {
     oldForm.remove();
@@ -351,8 +368,11 @@ const newList = (project) => {
       todoNote.value,
       todoComplete(),
     ));
+    arr[index] = project;
+    storeItem('projects', arr);
     clearElement('todo-wrap');
-    displayTodoItems(project.todos, project);
+    displayTodoItems(project.todos, project, arr, index);
+    formContainer.innerHTML = "";
   });
   listForm.appendChild(todoBtn);
 };
@@ -371,12 +391,12 @@ const displayProjects = (arr) => {
   projectWrap.classList.add('project-wrap');
   projectWrap.id = 'project-wrap';
 
-  const projectItemMaker = (parent, project) => {
+  const projectItemMaker = (parent, project, index) => {
     const projectItem = document.createElement('div');
     projectItem.classList.add('project-items');
     projectItem.addEventListener('click', () => {
-      newList(project);
-      displayTodoItems(project.todos, project);
+      showFormBtn(project, arr, index);
+      displayTodoItems(project.todos, project, arr, index);
     });
 
     const projectTitle = document.createElement('h3');
@@ -390,7 +410,7 @@ const displayProjects = (arr) => {
 
   for (let i = 0; i < arr.length; i += 1) {
     const project = arr[i];
-    projectItemMaker(projectWrap, project);
+    projectItemMaker(projectWrap, project, i);
   }
 
   bodyLeft.appendChild(projectWrap);
@@ -429,5 +449,16 @@ bodyLeft.appendChild(newProjectBtn);
 newProjectBtn.addEventListener('click', () => {
   newProject();
 });
+
+const showFormBtn = (project, arr, index) => {
+  const showBtn = document.createElement('button');
+  showBtn.type = 'button';
+  showBtn.textContent = 'add';
+  showBtn.addEventListener('click', () => {
+    newList(project, arr, index);
+  });
+  bodyRight.appendChild(showBtn);
+
+}
 
 export { newList, displayTodoItems, displayProjects };
