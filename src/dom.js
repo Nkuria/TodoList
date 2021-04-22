@@ -147,8 +147,6 @@ const displayEditForm = (domObj, obj) => {
 };
 
 const displayTodoItems = (arr, project, projectArr, projectIndex) => {
-  console.log(projectArr);
-  console.log(projectIndex);
   const oldTodos = document.getElementById('todo-wrap');
   if (oldTodos != null) {
     oldTodos.remove();
@@ -177,6 +175,12 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     todoNotes.classList.add('todo-notes');
     todoNotes.textContent = obj.notes;
 
+    const stateControls = document.createElement('div');
+    stateControls.classList.add('state-controls');
+
+    const priorityWrap = document.createElement('div');
+    priorityWrap.classList.add('priority-wrap');
+
     const todoPriority = document.createElement('div');
     todoPriority.classList.add('todo-priority');
     todoPriority.textContent = obj.priority;
@@ -186,24 +190,23 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
 
 
     const highPriority = document.createElement('button');
-    highPriority.innerHTML = 'Change to high';
     highPriority.classList.add('high-priority');
     highPriority.addEventListener('click', () => {
       obj.changePriority(todoPriority, 'high');
     });
 
     const mediumPriority = document.createElement('button');
-    mediumPriority.innerHTML = 'Change to Medium';
     mediumPriority.classList.add('medium-priority');
     mediumPriority.addEventListener('click', () => {
       obj.changePriority(todoPriority, 'medium');
     });
 
     const normalPriority = document.createElement('button');
-    normalPriority.innerHTML = 'Change to Low';
-    normalPriority.classList.add('high-priority');
+    normalPriority.classList.add('low-priority');
     normalPriority.addEventListener('click', () => {
       obj.changePriority(todoPriority, 'low');
+      projectArr[projectIndex] = project;
+      storeItem('projects', projectArr);
     });
 
     priorityContainer.appendChild(highPriority);
@@ -211,19 +214,43 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     priorityContainer.appendChild(normalPriority);
 
 
+    priorityWrap.appendChild(todoPriority);
+    priorityWrap.appendChild(priorityContainer);
+
+    const completedWrap = document.createElement('div');
+    completedWrap.classList.add('completed-wrap');
+
     const todoCheckList = document.createElement('div');
     todoCheckList.classList.add('todo-checklist');
-    todoCheckList.textContent = obj.checklist;
+    const tickIcon = '<span class="iconify" data-icon="si-glyph:square-checked" data-inline="false"></span>';
+    const tickIconGreen = '<span class="iconify completed" data-icon="si-glyph:square-checked" data-inline="false"></span>';
+    todoCheckList.innerHTML = obj.checklist === 'completed' ? tickIcon : obj.checklist;
 
-    const changecompletion = document.createElement('button');
-    changecompletion.innerHTML = 'Mark as completed';
-    changecompletion.classList.add('change-completion');
-    changecompletion.addEventListener('click', () => {
-      obj.changeCompletionBtn(todoCheckList);
+    const changeCompletionBtn = document.createElement('button');
+    changeCompletionBtn.classList.add('todo-checklist');
+    changeCompletionBtn.innerHTML = tickIcon;
+    changeCompletionBtn.classList.add('change-completion');
+    changeCompletionBtn.addEventListener('click', () => {
+      obj.changeCompletion(todoCheckList);
+      projectArr[projectIndex] = project;
+      storeItem('projects', projectArr);
+      changeCompletionBtn.innerHTML = tickIconGreen;
     });
 
+    const isCompleted = (btn) => {
+      if (obj.checklist === 'completed') {
+        btn.innerHTML = tickIconGreen;
+      }
+    };
+
+    isCompleted(changeCompletionBtn);
+    completedWrap.appendChild(changeCompletionBtn);
+
+    stateControls.appendChild(priorityWrap);
+    stateControls.appendChild(completedWrap);
+
     const editBtn = document.createElement('button');
-    editBtn.innerHTML = 'edit';
+    editBtn.innerHTML = '<span class="iconify" data-icon="akar-icons:edit" data-inline="false"></span>';
     editBtn.type = 'button';
     editBtn.classList.add('edit-todo');
     editBtn.addEventListener('click', () => {
@@ -239,8 +266,8 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
 
     const deleteTodoBtn = document.createElement('button');
 
-    deleteTodoBtn.innerHTML = 'Delete ToDo';
-    deleteTodoBtn.classList.add('delete-todo-btn');
+    deleteTodoBtn.innerHTML = '<span class="iconify" data-icon="ic:baseline-delete-outline" data-inline="false"></span>';
+    deleteTodoBtn.classList.add('delete-todo');
     deleteTodoBtn.addEventListener('click', () => {
       project.deleteTodo(index);
       projectArr[projectIndex] = project;
@@ -252,10 +279,7 @@ const displayTodoItems = (arr, project, projectArr, projectIndex) => {
     todoItem.appendChild(todoDesc);
     todoItem.appendChild(todoDueDate);
     todoItem.appendChild(todoNotes);
-    todoItem.appendChild(todoPriority);
-    todoItem.appendChild(priorityContainer);
-    todoItem.appendChild(todoCheckList);
-    todoItem.appendChild(changecompletion);
+    todoItem.appendChild(stateControls);
     todoItem.appendChild(editBtn);
     todoItem.appendChild(deleteTodoBtn);
 
@@ -380,7 +404,12 @@ const newList = (project, arr, index) => {
 };
 
 const showFormBtn = (project, arr, index) => {
+  const oldBtn = document.getElementById('show-project-form-btn');
+  if (oldBtn != null) {
+    oldBtn.remove();
+  }
   const showBtn = document.createElement('button');
+  showBtn.id = 'show-project-form-btn';
   showBtn.type = 'button';
   showBtn.textContent = 'Create New ToDo';
   showBtn.addEventListener('click', () => {
@@ -413,8 +442,8 @@ const displayProjects = (arr) => {
     });
 
     const projectTitle = document.createElement('h3');
-    projectTitle.classList.add('todo-title');
-    projectTitle.textContent = project.title;
+    projectTitle.classList.add('project-title');
+    projectTitle.textContent = `${project.title} (${project.todos.length})`;
 
     projectItem.appendChild(projectTitle);
 

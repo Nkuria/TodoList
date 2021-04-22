@@ -20,8 +20,8 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
     this.priority = text;
   };
 
-  this.changeCompletionBtn = (target) => {
-    target.innerHTML = 'completed';
+  this.changeCompletion = (target) => {
+    target.innerHTML = '<span class="iconify" data-icon="si-glyph:square-checked" data-inline="false"></span>';
     this.checklist = 'completed';
   };
 

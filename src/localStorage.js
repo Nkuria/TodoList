@@ -8,7 +8,7 @@ projectOne.addTodo(new Todo(
   '23/03/2010',
   'high',
   'Leave immediately after school',
-  'checked',
+  'pending',
 ));
 
 projectOne.addTodo(new Todo(
@@ -17,7 +17,7 @@ projectOne.addTodo(new Todo(
   '23/03/2010',
   'medium',
   'Set the target audience to begginers',
-  'checked',
+  'pending',
 ));
 
 const convertJsonToTodo = (jsonArr) => {

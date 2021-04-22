@@ -1,11 +1,17 @@
-body {
-    
+*{
     margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-size: 1vh;
 }
 
 button {
     background-color: #e76f51;
-    padding: 2%;
+    /* padding: 2%; */
     border: 0;
     border-radius: 7px;
     margin-right: 2%;
@@ -18,7 +24,7 @@ input {
     border: 0;
     border-bottom:1px solid #e76f51;
     margin-right: 2%;
-    box-shadow:0 0 15px 4px rgba(0,0,0,0.06); 
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
 }
 
 .heading-container {
@@ -41,25 +47,19 @@ input {
     column-gap: 2%;
     padding-top: 3%;
     height: 100%;
-    
+
     padding-left: 1%;
     padding-bottom: 5%;
 }
 
-.body-left {
-    box-shadow: 0 4px 8px 0 #e76f51;
-    padding: 10%;
-    border-radius: 30px;
-}
+/* .body-left {
+} */
 
 .body-right {
-    box-shadow: 0 4px 8px 0 #e76f51;
-    padding-top: 5%;
-    padding-left: 6%;
-    padding-bottom: 7%;
-    border-radius: 30px;
+    padding: 1rem 0;
     margin-right: 5%;
 }
+
 .add-project-btn {
     padding: 2%;
     border-radius: 7px;
@@ -74,7 +74,110 @@ input {
 }
 
 .todo-items {
-    /* display: flex;
-    flex-direction: row; */
-    
+    background-color: rgb(228, 228, 228);
+    width: 95%;
+    margin: auto;
+    padding: 1rem;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+     -moz-box-shadow: 0 10px 6px -6px #777;
+          box-shadow: 0 10px 6px -6px #777;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.todo-title {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+}
+
+.todo-desc{
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+}
+
+.todo-date {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
+}
+
+.todo-notes {
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+.todo-priority,
+.todo-checklist  {
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: none;
+    color: black
+}
+
+.todo-checklist .iconify{
+    font-size: 1.5rem;
+}
+
+.completed {
+    color:green;
+    pointer-events: none;
+}
+
+.priority-container {
+ flex: 1;
+}
+
+.priority-container button {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+
+.high-priority {
+ background-color: red;
+}
+
+.medium-priority {
+   background-color: yellow;
+}
+
+.low-priority {
+    background-color: green;
+}
+
+.state-controls {
+    display: flex;
+    padding: 10px 0;
+}
+
+.priority-wrap,
+.completed-wrap {
+    flex: 1;
+}
+
+.edit-todo .iconify,
+.delete-todo .iconify {
+    font-size: 1.5rem;
+}
+
+.edit-todo, .delete-todo {
+    padding: 5px;
+}
+
+.project-items {
+    background-color: rgb(228, 228, 228);
+    width: 95%;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+     -moz-box-shadow: 0 10px 6px -6px #777;
+          box-shadow: 0 10px 6px -6px #777;
+    margin-bottom: 10px;
+}
+
+.project-title {
+    font-size: 1.2rem;
+    font-weight: 700;
 }
