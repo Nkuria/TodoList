@@ -374,14 +374,6 @@ const newList = (project, arr, index) => {
   todoNote.placeholder = 'Add Note';
   listForm.appendChild(todoNote);
 
-  // const completeLabel = document.createElement('label');
-  // completeLabel.textContent = 'Completed';
-  // listForm.appendChild(completeLabel);
-
-  // const todoCheckList = document.createElement('input');
-  // todoCheckList.type = 'checkbox';
-  // listForm.appendChild(todoCheckList);
-
   const todoPriority = () => {
     if (highPriority.checked === true) {
       return highPriority.value;

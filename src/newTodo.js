@@ -24,10 +24,6 @@ function Todo(title, description, dueDate, priority, notes, checklist) {
     target.innerHTML = '<span class="iconify" data-icon="si-glyph:square-checked" data-inline="false"></span>';
     this.checklist = 'completed';
   };
-
-  // this.deleteTodo = (index) => {
-  //   this.todos.splice(index, 1);
-  // };
 }
 
 export default Todo;

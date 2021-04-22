@@ -47,7 +47,7 @@ const storeItem = (name, data) => window.localStorage.setItem(name, JSON.stringi
 
 const defaultProjects = [projectOne];
 
-const fetchItem = name => {
+const fetchItem = (name) => {
   const json = JSON.parse(window.localStorage.getItem(name));
   if (json == null) {
     storeItem('projects', defaultProjects);
