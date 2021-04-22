@@ -17,7 +17,9 @@ body.appendChild(bodyContainer)
 
 
 const bodyLeft = document.createElement('div');
+bodyLeft.classList.add('body-left');
 const bodyRight = document.createElement('div');
+bodyRight.classList.add('body-right');
 
 bodyContainer.appendChild(bodyLeft);
 bodyContainer.appendChild(bodyRight);
@@ -282,7 +284,7 @@ const newList = (project, arr, index) => {
     oldForm.remove();
   }
   const formContainer = document.createElement('div');
-  bodyRight.appendChild(formContainer);
+  bodyRight.prepend(formContainer);
   formContainer.classList.add('form-container');
   formContainer.id = ('form-container');
 
@@ -358,7 +360,7 @@ const newList = (project, arr, index) => {
 
   const todoBtn = document.createElement('button');
   todoBtn.type = 'button';
-  todoBtn.textContent = 'add';
+  todoBtn.textContent = '+';
   todoBtn.addEventListener('click', () => {
     project.addTodo(new Todo(
       todoTitle.value,
@@ -433,6 +435,7 @@ const newProject = () => {
 
   const addProjectBtn = document.createElement('button');
   addProjectBtn.innerHTML = 'Create Project';
+  addProjectBtn.classList.add("add-project-btn");
   addProjectBtn.type = 'button';
   projectForm.appendChild(addProjectBtn);
 
@@ -453,7 +456,7 @@ newProjectBtn.addEventListener('click', () => {
 const showFormBtn = (project, arr, index) => {
   const showBtn = document.createElement('button');
   showBtn.type = 'button';
-  showBtn.textContent = 'add';
+  showBtn.textContent = 'Create New ToDo';
   showBtn.addEventListener('click', () => {
     newList(project, arr, index);
   });
