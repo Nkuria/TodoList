@@ -32,7 +32,7 @@ The JS has the following structure
 
 ## Live Demo
 
-[Live Demo Link](https://misori-simon.github.io/library/)
+[Live Demo Link](https://nkuria.github.io/TodoList/)
 
 
 ## Getting Started
