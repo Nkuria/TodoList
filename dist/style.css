@@ -1,0 +1,250 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-size: 1vh;
+}
+
+button {
+    background-color: #e76f51;
+    border: 0;
+    border-radius: 7px;
+    margin-right: 2%;
+    color: white;
+}
+
+input {
+    padding: 2%;
+    border-radius: 5px;
+    border: 0;
+    border-bottom:1px solid #e76f51;
+    margin-right: 2%;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    margin-bottom: 2%;
+}
+
+.heading-container {
+    background-color: #e76f51;
+    padding-bottom: 5%;
+    padding-top: 3%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding-left: 2%;
+}
+
+.heading-container h3 {
+    color: white;
+    font-size: 5em;
+}
+
+.body-container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: white;
+    column-gap: 2%;
+    padding-top: 3%;
+    height: 100%;
+
+    padding-left: 1%;
+    padding-bottom: 5%;
+}
+
+.body-left {
+    position: relative;
+}
+
+.body-right {
+    padding: 1rem 0;
+    margin-right: 5%;
+    position: relative;
+    
+}
+
+.add-project-btn {
+    padding: 2%;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    margin-left: 1%;
+}
+
+.form-container {
+    position: relative;   
+
+}
+
+
+
+.edit-form {
+    position: absolute;
+    top: 0;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;  
+    background: #777;
+    font-size: 1.5em;
+    width: 50%;
+    padding: 3% 5%;
+}
+
+.close-form {
+    position: absolute;
+    top: 2%;
+    font-size: 1.5em;
+    right: 1%;
+}
+
+.list-form {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;  
+    background: #777;
+    font-size: 1.5em;
+    width: 50%;
+    padding: 3% 5%;
+}
+
+.list-form input{
+    margin-bottom: 5%;
+    
+}
+
+.todo-items {
+    background-color: rgb(228, 228, 228);
+    width: 95%;
+    margin: auto;
+    padding: 1rem;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+     -moz-box-shadow: 0 10px 6px -6px #777;
+          box-shadow: 0 10px 6px -6px #777;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.todo-title {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+}
+
+.todo-desc{
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+}
+
+.todo-date {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
+}
+
+.todo-notes {
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+.todo-priority,
+.todo-checklist  {
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: none;
+    color: black
+}
+
+.todo-checklist .iconify{
+    font-size: 1.5rem;
+}
+
+.completed {
+    color:green;
+    pointer-events: none;
+}
+
+.priority-container {
+ flex: 1;
+}
+
+.priority-container button {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+
+.high-priority {
+ background-color: #EB5A46;
+}
+
+.medium-priority {
+   background-color: #FF9F1A;
+}
+
+.low-priority {
+    background-color: #F2D600;
+}
+
+.state-controls {
+    display: flex;
+    padding: 10px 0;
+}
+
+.priority-wrap,
+.completed-wrap {
+    flex: 1;
+}
+
+.edit-todo .iconify,
+.delete-todo .iconify {
+    font-size: 1.5rem;
+}
+
+.edit-todo, .delete-todo {
+    padding: 5px;
+}
+
+.project-items {
+    background-color: rgb(228, 228, 228);
+    width: 95%;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+     -moz-box-shadow: 0 10px 6px -6px #777;
+          box-shadow: 0 10px 6px -6px #777;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-project .iconify {
+    font-size: 1.7em;
+}
+
+.project-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.new-project-button, .todoBtn, #show-project-form-btn {
+    margin-bottom: 3%;
+    padding: 8px;
+}
+
+
+
+.project-form {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    display: flex;
+}
+
