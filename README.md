@@ -49,6 +49,11 @@ The JS has the following structure
 ``` cd TodoList```
 - Open the ``` index.html``` file in the browser.
 
+### Testing.
+- Tests in this application are written using jest
+- In your terminal run
+``` npm test ```
+
 
 
 ## Authors
