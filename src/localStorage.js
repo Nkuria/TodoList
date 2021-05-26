@@ -50,7 +50,8 @@ const defaultProjects = [projectOne];
 const fetchItem = (name) => {
   const json = JSON.parse(window.localStorage.getItem(name));
   if (json == null) {
-    storeItem('projects', defaultProjects);
+    storeItem(name, defaultProjects);
+    return defaultProjects;
   }
   return convertJsonToProject(json);
 };

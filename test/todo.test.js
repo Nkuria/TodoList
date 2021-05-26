@@ -1,45 +1,32 @@
-import Todo from '../src/newTodo';
-
-const todoOne = new Todo(
-  'Mow lawn',
-  'Clear the surrounding grasses',
-  '23/03/2010',
-  'high',
-  'Leave immediately after school',
-  'pending',
-);
-
-const target = document.createElement('p');
-
-const span = '<span class="iconify" data-icon="si-glyph:square-checked" data-inline="false"></span>';
+import { testData } from './testData';
 
 describe('Todo', () => {
   it('should assign title to todo', () => {
-    expect(todoOne.title).toBe('Mow lawn');
+    expect(testData.todo.title).toBe('Mow lawn');
   });
 
   it('should assign description to todo', () => {
-    expect(todoOne.description).toBe('Clear the surrounding grasses');
+    expect(testData.todo.description).toBe('Clear the surrounding grasses');
   });
 
   it('should assign duedate to todo', () => {
-    expect(todoOne.dueDate).toBe('23/03/2010');
+    expect(testData.todo.dueDate).toBe('23/03/2010');
   });
 
   it('should assign priority to todo', () => {
-    expect(todoOne.priority).toBe('high');
+    expect(testData.todo.priority).toBe('high');
   });
 
   it('should assign notes to todo', () => {
-    expect(todoOne.notes).toBe('Leave immediately after school');
+    expect(testData.todo.notes).toBe('Leave immediately after school');
   });
 
   it('should assign completion state to todo', () => {
-    expect(todoOne.checklist).toBe('pending');
+    expect(testData.todo.checklist).toBe('pending');
   });
 
   it('should update Todo properties after edit', () => {
-    todoOne.edit(
+    testData.todo.edit(
       'Mow lawn Edited',
       'Clear the surrounding grasses edited',
       '23/03/2020',
@@ -47,23 +34,23 @@ describe('Todo', () => {
       'Leave immediately after school Edited',
       'complete',
     );
-    expect(todoOne.title).toBe('Mow lawn Edited');
-    expect(todoOne.description).toBe('Clear the surrounding grasses edited');
-    expect(todoOne.dueDate).toBe('23/03/2020');
-    expect(todoOne.priority).toBe('low');
-    expect(todoOne.notes).toBe('Leave immediately after school Edited');
-    expect(todoOne.checklist).toBe('complete');
+    expect(testData.todo.title).toBe('Mow lawn Edited');
+    expect(testData.todo.description).toBe('Clear the surrounding grasses edited');
+    expect(testData.todo.dueDate).toBe('23/03/2020');
+    expect(testData.todo.priority).toBe('low');
+    expect(testData.todo.notes).toBe('Leave immediately after school Edited');
+    expect(testData.todo.checklist).toBe('complete');
   });
 
   it('should change priority', () => {
-    todoOne.changePriority(target, 'medium');
-    expect(todoOne.priority).toBe('medium');
-    expect(target.innerHTML).toBe('medium');
+    testData.todo.changePriority(testData.target, 'medium');
+    expect(testData.todo.priority).toBe('medium');
+    expect(testData.target.innerHTML).toBe('medium');
   });
 
   it('should change Completion of todo State', () => {
-    todoOne.changeCompletion(target);
-    expect(todoOne.checklist).toBe('completed');
-    expect(target.innerHTML).toBe(span);
+    testData.todo.changeCompletion(testData.target);
+    expect(testData.todo.checklist).toBe('completed');
+    expect(testData.target.innerHTML).toBe(testData.span);
   });
 });
